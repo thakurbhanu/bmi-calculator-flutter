@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const bottomComtainerHeight = 80.0;
 const activeCardColor = Color(0xff1d1e33);
