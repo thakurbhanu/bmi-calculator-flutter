@@ -1,13 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'gender_icon.dart';
 import 'resuable_card.dart';
-
-const bottomComtainerHeight = 60.0;
-const activeCardColor = Color(0xff1d1e33);
-const inactiveCardColor = Color(0xff111328);
-const bottomComtainerColor = Color(0xffeb1555);
+import 'constants_file.dart';
 
 enum genderTypes {
   male,
@@ -23,6 +21,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   genderTypes selectedGender;
 
+  int cmHeight = 130;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,95 +31,134 @@ class _InputPageState extends State<InputPage> {
       ),
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: ReusableCard(
+                      customOnPress: () {
                         setState(() {
                           selectedGender = genderTypes.male;
                         });
                       },
-                      child: ReusableCard(
-                        childCard: genderIconWidget(
-                          genderName: 'Male',
-                          genderIcon: FontAwesomeIcons.mars,
-                        ),
-                        colour: selectedGender == genderTypes.male
-                            ? activeCardColor
-                            : inactiveCardColor,
+                      childCard: genderIconWidget(
+                        genderName: 'MALE',
+                        genderIcon: FontAwesomeIcons.mars,
                       ),
+                      colour: selectedGender == genderTypes.male
+                          ? kActiveCardColor
+                          : kInactiveCardColor,
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedGender = genderTypes.female;
-                        });
-                      },
-                      child: ReusableCard(
-                        childCard: genderIconWidget(
-                          genderIcon: FontAwesomeIcons.venus,
-                          genderName: 'Female',
-                        ),
-                        colour: selectedGender == genderTypes.female
-                            ? activeCardColor
-                            : inactiveCardColor,
+                    child: ReusableCard(customOnPress: () {
+                      setState(() {
+                        selectedGender = genderTypes.female;
+                      });
+                    },
+                      childCard: genderIconWidget(
+                        genderIcon: FontAwesomeIcons.venus,
+                        genderName: 'FEMALE',
+                      ),
+                      colour: selectedGender == genderTypes.female
+                          ? kActiveCardColor
+                          : kInactiveCardColor,
 //                      childCard: ,
-                      ),
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedGender = genderTypes.pride;
-                        });
-                      },
                       child: ReusableCard(
+                        customOnPress: () {
+                          setState(() {
+                            selectedGender = genderTypes.pride;
+                          });
+                        },
                         childCard: genderIconWidget(
                           genderIcon: FontAwesomeIcons.peace,
-                          genderName: 'Pride',
+                          genderName: 'PRIDE',
                         ),
                         colour: selectedGender == genderTypes.pride
-                            ? activeCardColor
-                            : inactiveCardColor,
+                            ? kActiveCardColor
+                            : kInactiveCardColor,
 //                      childCard: ,
                       ),
                     ),
-                  ),
                 ],
               ),
             ),
+
+//            Height
             Expanded(
               child: ReusableCard(
-                colour: activeCardColor,
+                colour: kActiveCardColor,
+                childCard: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                        'HEIGHT',
+                      style: kCustomGenderStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: <Widget>[
+                        Text(
+                          cmHeight.toString(),
+                          style: kCustomNumberStyle,
+                        ),
+                        SizedBox(
+                          width: 3.0,
+                        ),
+                        Text(
+                          'cm',
+                          style: kCustomGenderStyle,
+                        ),
+                      ],
+                    ),
+                    Slider(
+                      value: cmHeight.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      activeColor: kActiveSliderColor,
+                      inactiveColor: kInactiveSliderColor,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          cmHeight = newValue.toInt();
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
+
+
             Expanded(
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: ReusableCard(
-                      colour: activeCardColor,
+                      colour: kActiveCardColor,
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
-                      colour: activeCardColor,
+                      colour: kActiveCardColor,
                     ),
                   ),
                 ],
               ),
             ),
+
+
             Container(
-              color: bottomComtainerColor,
+              color: kBottomContainerColor,
               margin: EdgeInsets.only(top: 10),
               width: double.infinity,
-              height: bottomComtainerHeight,
+              height: kBottomContainerHeight,
             ),
           ],
         ),

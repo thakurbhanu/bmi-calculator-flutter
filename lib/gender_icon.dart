@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'constants_file.dart';
 
 class genderIconWidget extends StatelessWidget {
 
@@ -9,6 +9,8 @@ class genderIconWidget extends StatelessWidget {
   final String genderName;
 
   genderIconWidget ({this.genderIcon, this.genderName});
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,11 +25,7 @@ class genderIconWidget extends StatelessWidget {
         ),
         Text(
           genderName,
-          style: TextStyle(
-            color: Color(0xff8d8e98),
-            fontSize: 18.0,
-
-          ),
+          style: kCustomGenderStyle
         ),
       ],
     );
