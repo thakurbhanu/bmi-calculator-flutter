@@ -21,7 +21,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   genderTypes selectedGender;
 
-  int cmHeight = 130;
+  int cmHeight = 150;
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +121,7 @@ class _InputPageState extends State<InputPage> {
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
                         thumbColor: kActiveSliderColor,
+                        inactiveTrackColor: kInactiveSliderColor,
                         overlayColor: Color(0x29eb1555),
                         activeTrackColor: Colors.white,
                         thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15),
@@ -133,7 +134,6 @@ class _InputPageState extends State<InputPage> {
                         value: cmHeight.toDouble(),
                         min: 120.0,
                         max: 220.0,
-                        inactiveColor: kInactiveSliderColor,
                         onChanged: (double newValue) {
                           setState(() {
                             cmHeight = newValue.toInt();
