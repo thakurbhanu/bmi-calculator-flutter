@@ -1,11 +1,13 @@
 import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'gender_icon.dart';
 import 'resuable_card.dart';
 import 'constants_file.dart';
+import 'results_page.dart';
+import 'bottom_button.dart';
+import 'round_icon_buttons.dart';
 
 enum genderTypes {
   male,
@@ -22,6 +24,7 @@ class _InputPageState extends State<InputPage> {
   genderTypes selectedGender;
 
   int cmHeight = 150;
+  int weight = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,6 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
 
-//            Height
             Expanded(
               child: ReusableCard(
                 colour: kActiveCardColor,
@@ -153,6 +155,33 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: ReusableCard(
                       colour: kActiveCardColor,
+                      childCard: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'WEIGHT',
+                            style: kCustomGenderStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kCustomNumberStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                roundIconChild: FontAwesomeIcons.plus,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              RoundIconButton(
+                                roundIconChild: FontAwesomeIcons.minus ,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -165,11 +194,11 @@ class _InputPageState extends State<InputPage> {
             ),
 
 
-            Container(
-              color: kBottomContainerColor,
-              margin: EdgeInsets.only(top: 10),
-              width: double.infinity,
-              height: kBottomContainerHeight,
+            BottomButton(
+              bottomButtonString: 'CALCULATE',
+              onPressBottomButton: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultsPage(),),);
+            },
             ),
           ],
         ),
@@ -177,3 +206,4 @@ class _InputPageState extends State<InputPage> {
     );
   }
 }
+
